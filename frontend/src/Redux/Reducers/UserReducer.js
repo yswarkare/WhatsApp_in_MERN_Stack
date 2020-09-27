@@ -57,7 +57,7 @@ const userReducer = (state = userState, action) => {
         case Set_User_Username:
         stateCopy.user.username = action.payload
         stateCopy.errors.registration.success = null;
-        return stateCopy
+        return stateCopy;
 
         case Set_User_Email_Id:
         let email = validator.isEmail(action.payload);
@@ -117,19 +117,19 @@ const userReducer = (state = userState, action) => {
         stateCopy.errors.registration.firstPassword.message = "Choose a password containing at least one lowercase, one uppercase letter, one digit and special character.";
         stateCopy.errors.registration.secondPassword.message = "Enter the password again";
         console.log(stateCopy);
-        return stateCopy
+        return stateCopy;
 
         case Is_User_Logged_In:
         console.log(action.payload);
-        state.user = action.payload.data.user;
-        state.loginStatus.loggedIn = action.payload.data.success;
+        stateCopy.user = action.payload.data.user;
+        stateCopy.loginStatus.loggedIn = action.payload.data.success;
         if (action.payload.data.success === true) {
-            state.loginStatus.loginRedirect = "/user-account"
+            stateCopy.loginStatus.loginRedirect = "/user-account"
         } else {
-            state.loginStatus.loginRedirect = "/"
+            stateCopy.loginStatus.loginRedirect = "/"
         }
-        console.log(state)
-        return state;
+        console.log(stateCopy)
+        return stateCopy;
 
         case Verify_Cookies:
         console.log(action.payload)
@@ -138,39 +138,39 @@ const userReducer = (state = userState, action) => {
         case Get_Login_Username_Or_Email_ID:
         stateCopy.loginDetails.usernameOrEmailId = action.payload
         console.log(stateCopy);
-        return stateCopy
+        return stateCopy;
 
         case Get_Login_Password:
         stateCopy.loginDetails.password = action.payload;
         console.log(stateCopy)
-        return stateCopy
+        return stateCopy;
 
         case Set_Login_Redirect:
         console.log(action.payload)
         if (action.payload.data.success && action.payload.data.success === false) {
-            state.errors.login.success = false;
-            state.errors.login.message = action.payload.data.message;
-            state.loginStatus.loginRedirect = "/user-login"
+            stateCopy.errors.login.success = false;
+            stateCopy.errors.login.message = action.payload.data.message;
+            stateCopy.loginStatus.loginRedirect = "/user-login"
         } else {
-            state.user = action.payload.data.loggedIn.user
-            state.loginStatus.loggedIn = action.payload.data.success;
-            state.loginStatus.loginRedirect = "/user-account"
-            state.errors.logIn.password.success = false;
-            state.errors.logIn.password.message = "Enter your password";
-            state.errors.logIn.usernameOrEmailId.success = false;
-            state.errors.logIn.usernameOrEmailId.message = "Enter your username or email id";
+            stateCopy.user = action.payload.data.loggedIn.user
+            stateCopy.loginStatus.loggedIn = action.payload.data.success;
+            stateCopy.loginStatus.loginRedirect = "/user-account"
+            stateCopy.errors.logIn.password.success = false;
+            stateCopy.errors.logIn.password.message = "Enter your password";
+            stateCopy.errors.logIn.usernameOrEmailId.success = false;
+            stateCopy.errors.logIn.usernameOrEmailId.message = "Enter your username or email id";
         }
-        console.log(state);
-        return state
+        console.log(stateCopy);
+        return stateCopy;
     
         case User_Logout:
         console.log(action.payload)
-        state.user.token = "";
-        state.loginStatus.loggedIn = false;
+        stateCopy.user.token = "";
+        stateCopy.loginStatus.loggedIn = false;
         alert("You are successfully Logged Out.");
-        state.loginStatus.logoutRedirect = "/";
-        console.log(state);
-        return state
+        stateCopy.loginStatus.logoutRedirect = "/";
+        console.log(stateCopy);
+        return stateCopy;
 
         case Get_User_Info:
         console.log(action.payload);

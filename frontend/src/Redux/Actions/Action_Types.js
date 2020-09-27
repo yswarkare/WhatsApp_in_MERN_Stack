@@ -34,3 +34,15 @@ export const Update_User_Name = "Update_User_Name";
 export const Update_User_Username = "Update_User_Username";
 export const Update_User_Email_Id = "Update_User_Email_Id";
 export const Update_User_Password = "Update_User_Password";
+
+// Users
+
+export const Get_All_Conversations = "Get_All_Conversations";
+export const Get_All_Friends = "Get_All_Friends";
+
+// Conversations
+
+export const Get_Conversation = "Get_Conversation";
+export const Write_Message = "Write_Message";
+export const Send_Message = "Send_Message";
+export const Catch_Error = "Catch_Error";

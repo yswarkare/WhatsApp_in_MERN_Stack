@@ -5,7 +5,7 @@ const User = require("../Models/User");
 const { registerUser, loginUser, verifyToken, jwtAuth, userAuth } = require("../Utils/Auth");
 
 
-router.get("/get-all-users", async (req, res) => {
+router.get("/get-all-users", userAuth, async (req, res) => {
     try {
         let users = await User.find()
         let allUsers = Object.assign({}, users)
@@ -15,6 +15,23 @@ router.get("/get-all-users", async (req, res) => {
         return res.json({success: false, message: "failed to get list of users", error: `${err}`})
     }
 })
+
+router.get("/get-all-other-users", userAuth, async (req, res) => {
+    try {
+        let allUsers = await User.find();
+        let index_01;
+        for (let i = 0; i < allUsers.length; i++){
+            if (allUsers[i].username === req.user.username) {
+                index_01 = i
+            }
+        }
+        allUsers.splice(index_01, 1);
+        let others = allUsers;
+        return res.status(200).json({status: true, message: "got all other users", users: others, index_01: index_01});
+    } catch (err) {
+        return res.stauts(401).json({status: false, message: `failed to get other users \n ${err}`, error: {err}});
+    }
+});
 
 router.post("/register-user", async (req, res) => {
     await registerUser(req.body.user, res);

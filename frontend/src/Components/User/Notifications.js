@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class UserProfile extends Component {
+class Notifications extends Component {
 
     render () {
         return (
             <div>
-                <p>User Profile</p>
+                <p>Notifications</p>
             </div>
         )
     }
@@ -19,4 +19,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {})(UserProfile);
+export default connect(mapStateToProps, {})(Notifications);

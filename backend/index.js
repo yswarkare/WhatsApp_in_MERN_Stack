@@ -7,12 +7,12 @@ const cors = require("cors")
 const User = require("./Models/User");
 const passport = require("passport");
 const { strategy } = require("./Middlewares/Passport")
-
-var http = require('http');
-
-
 const app = express();
+const http = require('http');
 
+const server = http.createServer(app)
+
+const io = require("socket.io")(server);
 
 app.use(passport.initialize());
 
@@ -52,13 +52,15 @@ const messageRoutes = require("./Routes/MessageRoutes");
 
 app.use("/api/messages", messageRoutes);
 
+const conversationRoutes = require("./Routes/ConversationRoutes");
+
+app.use("/api/conversations", conversationRoutes);
+
 
 const startServer = async () => {
     try {
         await connectMongoDB()
-        http.createServer(app, (req, res) => {
-            res.writeHead(200, {'Content-Type': 'application/json'}, {'token': ""})
-        }).listen(port, ()=> {
+        server.listen(port, ()=> {
             info({message: "App Started", badge: true})
             success({message: `Server Running at Port ${port}`, badge: true})
         })
@@ -69,3 +71,8 @@ const startServer = async () => {
 }
 
 startServer()
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.broadcast.emit('hi');
+});

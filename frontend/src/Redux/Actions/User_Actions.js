@@ -14,7 +14,8 @@ import {
     Set_Login_Redirect,
     User_Logout,
     Verify_Cookies,
-    User_Errors } from "./Action_Types.js"
+    User_Errors,
+    Get_All_Friends } from "./Action_Types.js"
 
 import { Registration_Errors,
     Log_In_Error,
@@ -196,5 +197,17 @@ export const verifyCookies = () => async (dispatch) => {
         })
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getAllFriends = () => async (dispatch) => {
+    try {
+        let res = await api.get("/users//get-all-other-users");
+        dispatch({
+            type: Get_All_Friends,
+            payload: res
+        })
+    } catch (error) {
+        console.log(error);
     }
 }

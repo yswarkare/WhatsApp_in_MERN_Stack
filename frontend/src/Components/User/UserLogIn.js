@@ -97,8 +97,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { 
+const mapDispatchToProps = { 
     getUsernameOrEmailId,
     getPassword,
     userLogin,
-    setUserLogout })(UserLogIn)
+    setUserLogout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogIn)

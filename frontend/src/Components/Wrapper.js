@@ -8,6 +8,7 @@ import HomePage from "./HomePage";
 import UserLogIn from "./User/UserLogIn";
 import RegisterUser from "./User/Register_User";
 import UserAccount from "./User/User_Account";
+import UserDashboard from "./User/User_Dashboard";
 
 class Wrapper extends Component {
 
@@ -25,6 +26,7 @@ class Wrapper extends Component {
                         <Route exact path="/user-login"><UserLogIn></UserLogIn></Route>
                         <Route exact path="/register-user"><RegisterUser></RegisterUser></Route>
                         <Route exact path="/user-account"><UserAccount></UserAccount></Route>
+                        <Route exact path="/user-dashboard"><UserDashboard></UserDashboard></Route>
                     </Switch>
                 </Router>
             </div>
@@ -46,4 +48,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { isUserLoggedIn, userLogin, verifyCookies, setUserLogout })(Wrapper)
+const mapDispatchToProps = {
+    isUserLoggedIn,
+    userLogin,
+    verifyCookies,
+    setUserLogout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wrapper)
